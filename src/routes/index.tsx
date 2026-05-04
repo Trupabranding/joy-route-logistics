@@ -104,22 +104,15 @@ function Index() {
           <h2 className="font-display text-3xl font-bold mb-2">Three portals. One loop.</h2>
           <p className="text-muted-foreground mb-8">Pick a perspective to explore.</p>
           <div className="grid md:grid-cols-3 gap-4">
-            {PORTALS.map(({ to, icon: Icon, title, desc, cta }) => (
-              <Link
-                key={to}
-                to={to}
-                className="group p-6 rounded-2xl bg-surface border border-border hover:border-primary/40 transition shadow-elevated"
-              >
-                <div className="h-11 w-11 rounded-xl bg-accent flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <h3 className="font-display text-xl font-semibold mb-1">{title}</h3>
-                <p className="text-sm text-muted-foreground mb-4">{desc}</p>
-                <div className="text-sm text-primary inline-flex items-center gap-1">
-                  {cta} <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition" />
-                </div>
-              </Link>
-            ))}
+            <Link to="/driver/login" className={portalCardClass}>
+              <PortalInner icon={Truck} title="Driver" desc="Go online, accept jobs, track earnings." cta="Open driver app" />
+            </Link>
+            <Link to="/business/login" className={portalCardClass}>
+              <PortalInner icon={Briefcase} title="Business" desc="Create deliveries, dispatch, monitor live." cta="Open dashboard" />
+            </Link>
+            <Link to="/track/$id" params={{ id: "VR-2841" }} className={portalCardClass}>
+              <PortalInner icon={MapPin} title="Customer" desc="Track your delivery — no login needed." cta="View tracking demo" />
+            </Link>
           </div>
         </section>
       </main>
