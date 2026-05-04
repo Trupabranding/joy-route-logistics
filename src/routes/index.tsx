@@ -14,25 +14,22 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-type Portal = {
-  icon: typeof Truck;
-  title: string;
-  desc: string;
-  cta: string;
-  link: React.ReactNode;
-};
-
 const portalCardClass = "group p-6 rounded-2xl bg-surface border border-border hover:border-primary/40 transition shadow-elevated block";
 
-const PORTALS: Portal[] = [
-  {
-    icon: Truck,
-    title: "Driver",
-    desc: "Go online, accept jobs, track earnings.",
-    cta: "Open driver app",
-    link: <Link to="/driver/login" className={portalCardClass} key="driver" children={null as never} />,
-  },
-];
+function PortalInner({ icon: Icon, title, desc, cta }: { icon: typeof Truck; title: string; desc: string; cta: string }) {
+  return (
+    <>
+      <div className="h-11 w-11 rounded-xl bg-accent flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition">
+        <Icon className="h-5 w-5" />
+      </div>
+      <h3 className="font-display text-xl font-semibold mb-1">{title}</h3>
+      <p className="text-sm text-muted-foreground mb-4">{desc}</p>
+      <div className="text-sm text-primary inline-flex items-center gap-1">
+        {cta} <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition" />
+      </div>
+    </>
+  );
+}
 
 function Index() {
   return (
