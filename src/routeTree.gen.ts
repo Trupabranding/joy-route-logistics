@@ -9,38 +9,173 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as BusinessRouteImport } from './routes/business'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DriverIndexRouteImport } from './routes/driver.index'
+import { Route as BusinessIndexRouteImport } from './routes/business.index'
+import { Route as TrackIdRouteImport } from './routes/track.$id'
+import { Route as DriverTripRouteImport } from './routes/driver.trip'
+import { Route as DriverLoginRouteImport } from './routes/driver.login'
+import { Route as DriverEarningsRouteImport } from './routes/driver.earnings'
+import { Route as BusinessLoginRouteImport } from './routes/business.login'
+import { Route as BusinessHistoryRouteImport } from './routes/business.history'
+import { Route as BusinessCreateRouteImport } from './routes/business.create'
 
+const BusinessRoute = BusinessRouteImport.update({
+  id: '/business',
+  path: '/business',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DriverIndexRoute = DriverIndexRouteImport.update({
+  id: '/driver/',
+  path: '/driver/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BusinessIndexRoute = BusinessIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BusinessRoute,
+} as any)
+const TrackIdRoute = TrackIdRouteImport.update({
+  id: '/track/$id',
+  path: '/track/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DriverTripRoute = DriverTripRouteImport.update({
+  id: '/driver/trip',
+  path: '/driver/trip',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DriverLoginRoute = DriverLoginRouteImport.update({
+  id: '/driver/login',
+  path: '/driver/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DriverEarningsRoute = DriverEarningsRouteImport.update({
+  id: '/driver/earnings',
+  path: '/driver/earnings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BusinessLoginRoute = BusinessLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => BusinessRoute,
+} as any)
+const BusinessHistoryRoute = BusinessHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => BusinessRoute,
+} as any)
+const BusinessCreateRoute = BusinessCreateRouteImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => BusinessRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/business': typeof BusinessRouteWithChildren
+  '/business/create': typeof BusinessCreateRoute
+  '/business/history': typeof BusinessHistoryRoute
+  '/business/login': typeof BusinessLoginRoute
+  '/driver/earnings': typeof DriverEarningsRoute
+  '/driver/login': typeof DriverLoginRoute
+  '/driver/trip': typeof DriverTripRoute
+  '/track/$id': typeof TrackIdRoute
+  '/business/': typeof BusinessIndexRoute
+  '/driver/': typeof DriverIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/business/create': typeof BusinessCreateRoute
+  '/business/history': typeof BusinessHistoryRoute
+  '/business/login': typeof BusinessLoginRoute
+  '/driver/earnings': typeof DriverEarningsRoute
+  '/driver/login': typeof DriverLoginRoute
+  '/driver/trip': typeof DriverTripRoute
+  '/track/$id': typeof TrackIdRoute
+  '/business': typeof BusinessIndexRoute
+  '/driver': typeof DriverIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/business': typeof BusinessRouteWithChildren
+  '/business/create': typeof BusinessCreateRoute
+  '/business/history': typeof BusinessHistoryRoute
+  '/business/login': typeof BusinessLoginRoute
+  '/driver/earnings': typeof DriverEarningsRoute
+  '/driver/login': typeof DriverLoginRoute
+  '/driver/trip': typeof DriverTripRoute
+  '/track/$id': typeof TrackIdRoute
+  '/business/': typeof BusinessIndexRoute
+  '/driver/': typeof DriverIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/business'
+    | '/business/create'
+    | '/business/history'
+    | '/business/login'
+    | '/driver/earnings'
+    | '/driver/login'
+    | '/driver/trip'
+    | '/track/$id'
+    | '/business/'
+    | '/driver/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/business/create'
+    | '/business/history'
+    | '/business/login'
+    | '/driver/earnings'
+    | '/driver/login'
+    | '/driver/trip'
+    | '/track/$id'
+    | '/business'
+    | '/driver'
+  id:
+    | '__root__'
+    | '/'
+    | '/business'
+    | '/business/create'
+    | '/business/history'
+    | '/business/login'
+    | '/driver/earnings'
+    | '/driver/login'
+    | '/driver/trip'
+    | '/track/$id'
+    | '/business/'
+    | '/driver/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BusinessRoute: typeof BusinessRouteWithChildren
+  DriverEarningsRoute: typeof DriverEarningsRoute
+  DriverLoginRoute: typeof DriverLoginRoute
+  DriverTripRoute: typeof DriverTripRoute
+  TrackIdRoute: typeof TrackIdRoute
+  DriverIndexRoute: typeof DriverIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/business': {
+      id: '/business'
+      path: '/business'
+      fullPath: '/business'
+      preLoaderRoute: typeof BusinessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +183,98 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/driver/': {
+      id: '/driver/'
+      path: '/driver'
+      fullPath: '/driver/'
+      preLoaderRoute: typeof DriverIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/business/': {
+      id: '/business/'
+      path: '/'
+      fullPath: '/business/'
+      preLoaderRoute: typeof BusinessIndexRouteImport
+      parentRoute: typeof BusinessRoute
+    }
+    '/track/$id': {
+      id: '/track/$id'
+      path: '/track/$id'
+      fullPath: '/track/$id'
+      preLoaderRoute: typeof TrackIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/driver/trip': {
+      id: '/driver/trip'
+      path: '/driver/trip'
+      fullPath: '/driver/trip'
+      preLoaderRoute: typeof DriverTripRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/driver/login': {
+      id: '/driver/login'
+      path: '/driver/login'
+      fullPath: '/driver/login'
+      preLoaderRoute: typeof DriverLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/driver/earnings': {
+      id: '/driver/earnings'
+      path: '/driver/earnings'
+      fullPath: '/driver/earnings'
+      preLoaderRoute: typeof DriverEarningsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/business/login': {
+      id: '/business/login'
+      path: '/login'
+      fullPath: '/business/login'
+      preLoaderRoute: typeof BusinessLoginRouteImport
+      parentRoute: typeof BusinessRoute
+    }
+    '/business/history': {
+      id: '/business/history'
+      path: '/history'
+      fullPath: '/business/history'
+      preLoaderRoute: typeof BusinessHistoryRouteImport
+      parentRoute: typeof BusinessRoute
+    }
+    '/business/create': {
+      id: '/business/create'
+      path: '/create'
+      fullPath: '/business/create'
+      preLoaderRoute: typeof BusinessCreateRouteImport
+      parentRoute: typeof BusinessRoute
+    }
   }
 }
 
+interface BusinessRouteChildren {
+  BusinessCreateRoute: typeof BusinessCreateRoute
+  BusinessHistoryRoute: typeof BusinessHistoryRoute
+  BusinessLoginRoute: typeof BusinessLoginRoute
+  BusinessIndexRoute: typeof BusinessIndexRoute
+}
+
+const BusinessRouteChildren: BusinessRouteChildren = {
+  BusinessCreateRoute: BusinessCreateRoute,
+  BusinessHistoryRoute: BusinessHistoryRoute,
+  BusinessLoginRoute: BusinessLoginRoute,
+  BusinessIndexRoute: BusinessIndexRoute,
+}
+
+const BusinessRouteWithChildren = BusinessRoute._addFileChildren(
+  BusinessRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BusinessRoute: BusinessRouteWithChildren,
+  DriverEarningsRoute: DriverEarningsRoute,
+  DriverLoginRoute: DriverLoginRoute,
+  DriverTripRoute: DriverTripRoute,
+  TrackIdRoute: TrackIdRoute,
+  DriverIndexRoute: DriverIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
