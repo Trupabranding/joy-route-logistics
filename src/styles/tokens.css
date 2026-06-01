@@ -1,0 +1,185 @@
+/* =============================================================
+ * VangoRide — Design Tokens (Tailwind v4)
+ * -------------------------------------------------------------
+ * Naming convention
+ *   --vr-{tier}-{role}-{variant?}
+ *
+ *   tier     : primitive | semantic
+ *   primitive: raw color/scale value (never used by components)
+ *   semantic : intent-based (used by components & shadcn)
+ *
+ * Tiers
+ *   1. PRIMITIVES        — OKLCH scales, brand ramps
+ *   2. SEMANTIC (theme)  — bg, surface, text, border, brand…
+ *   3. SHADCN BRIDGE     — maps semantic → shadcn variable names
+ *   4. MAP TOKENS        — dedicated map theme variables
+ *
+ * Themes
+ *   :root  → Light theme (default)
+ *   .dark  → Dark theme override
+ *
+ * Brand
+ *   Electric Lime is theme-constant (same hue in light & dark).
+ * ============================================================= */
+
+/* ---------- 1. PRIMITIVES (theme-agnostic) ---------- */
+:root {
+  /* Brand — Electric Lime */
+  --vr-primitive-lime-400: oklch(0.92 0.18 130);
+  --vr-primitive-lime-500: oklch(0.88 0.20 130);
+  --vr-primitive-lime-600: oklch(0.82 0.18 145);
+  --vr-primitive-lime-700: oklch(0.72 0.17 140);
+
+  /* Neutrals — charcoal scale */
+  --vr-primitive-charcoal-50:  oklch(0.985 0.003 240);
+  --vr-primitive-charcoal-100: oklch(0.965 0.005 240);
+  --vr-primitive-charcoal-200: oklch(0.92  0.006 240);
+  --vr-primitive-charcoal-300: oklch(0.86  0.008 240);
+  --vr-primitive-charcoal-400: oklch(0.68  0.012 240);
+  --vr-primitive-charcoal-500: oklch(0.50  0.014 240);
+  --vr-primitive-charcoal-600: oklch(0.38  0.014 240);
+  --vr-primitive-charcoal-700: oklch(0.27  0.014 240);
+  --vr-primitive-charcoal-800: oklch(0.21  0.014 240);
+  --vr-primitive-charcoal-900: oklch(0.16  0.012 240);
+  --vr-primitive-charcoal-950: oklch(0.12  0.010 240);
+
+  /* Functional ramps */
+  --vr-primitive-success: oklch(0.78 0.17 155);
+  --vr-primitive-warning: oklch(0.82 0.16 75);
+  --vr-primitive-danger:  oklch(0.65 0.22 27);
+}
+
+/* ---------- 2. SEMANTIC TOKENS — LIGHT THEME (default) ---------- */
+:root {
+  --radius: 0.875rem;
+
+  /* Surfaces */
+  --vr-semantic-bg:           var(--vr-primitive-charcoal-50);
+  --vr-semantic-surface-1:    #ffffff;
+  --vr-semantic-surface-2:    var(--vr-primitive-charcoal-100);
+  --vr-semantic-surface-3:    var(--vr-primitive-charcoal-200);
+
+  /* Text */
+  --vr-semantic-text-primary:   var(--vr-primitive-charcoal-900);
+  --vr-semantic-text-secondary: var(--vr-primitive-charcoal-600);
+  --vr-semantic-text-muted:     var(--vr-primitive-charcoal-500);
+  --vr-semantic-text-on-brand:  var(--vr-primitive-charcoal-900);
+
+  /* Borders */
+  --vr-semantic-border:         var(--vr-primitive-charcoal-200);
+  --vr-semantic-border-strong:  var(--vr-primitive-charcoal-300);
+
+  /* Brand (constant across themes) */
+  --vr-semantic-brand:        var(--vr-primitive-lime-500);
+  --vr-semantic-brand-hover:  var(--vr-primitive-lime-600);
+  --vr-semantic-brand-soft:   color-mix(in oklab, var(--vr-primitive-lime-500) 18%, transparent);
+
+  /* Status */
+  --vr-semantic-success: var(--vr-primitive-success);
+  --vr-semantic-warning: var(--vr-primitive-warning);
+  --vr-semantic-danger:  var(--vr-primitive-danger);
+
+  /* Effects */
+  --vr-semantic-gradient-brand:
+    linear-gradient(135deg, var(--vr-primitive-lime-500), var(--vr-primitive-lime-600));
+  --vr-semantic-shadow-glow:
+    0 0 60px -10px color-mix(in oklab, var(--vr-primitive-lime-500) 45%, transparent);
+  --vr-semantic-shadow-elevated:
+    0 12px 30px -16px oklch(0.2 0.02 240 / 0.18);
+
+  /* ---------- 4. MAP TOKENS — LIGHT ---------- */
+  --vr-map-canvas:        var(--vr-primitive-charcoal-100);
+  --vr-map-grid:          var(--vr-primitive-charcoal-200);
+  --vr-map-route:         var(--vr-primitive-lime-500);
+  --vr-map-route-inactive: var(--vr-primitive-charcoal-300);
+  --vr-map-pickup:        var(--vr-primitive-charcoal-900);
+  --vr-map-dropoff:       var(--vr-primitive-lime-500);
+  --vr-map-driver:        var(--vr-primitive-lime-500);
+  --vr-map-driver-ring:   color-mix(in oklab, var(--vr-primitive-lime-500) 40%, transparent);
+  --vr-map-glow-a:        color-mix(in oklab, var(--vr-primitive-lime-500) 14%, transparent);
+  --vr-map-glow-b:        color-mix(in oklab, var(--vr-primitive-success) 12%, transparent);
+  --vr-map-vignette:      oklch(0.95 0.005 240 / 0.5);
+}
+
+/* ---------- 2b. SEMANTIC TOKENS — DARK THEME ---------- */
+.dark {
+  --vr-semantic-bg:           var(--vr-primitive-charcoal-900);
+  --vr-semantic-surface-1:    var(--vr-primitive-charcoal-800);
+  --vr-semantic-surface-2:    var(--vr-primitive-charcoal-700);
+  --vr-semantic-surface-3:    oklch(0.30 0.018 240);
+
+  --vr-semantic-text-primary:   var(--vr-primitive-charcoal-50);
+  --vr-semantic-text-secondary: var(--vr-primitive-charcoal-300);
+  --vr-semantic-text-muted:     var(--vr-primitive-charcoal-400);
+  --vr-semantic-text-on-brand:  var(--vr-primitive-charcoal-900);
+
+  --vr-semantic-border:         oklch(0.30 0.015 240);
+  --vr-semantic-border-strong:  oklch(0.38 0.018 240);
+
+  --vr-semantic-shadow-elevated:
+    0 20px 50px -20px oklch(0 0 0 / 0.55);
+
+  /* Map — Dark */
+  --vr-map-canvas:        oklch(0.22 0.013 240);
+  --vr-map-grid:          oklch(0.28 0.015 240);
+  --vr-map-route:         var(--vr-primitive-lime-500);
+  --vr-map-route-inactive: oklch(0.35 0.015 240);
+  --vr-map-pickup:        var(--vr-primitive-charcoal-50);
+  --vr-map-dropoff:       var(--vr-primitive-lime-500);
+  --vr-map-driver:        var(--vr-primitive-lime-500);
+  --vr-map-driver-ring:   color-mix(in oklab, var(--vr-primitive-lime-500) 35%, transparent);
+  --vr-map-glow-a:        color-mix(in oklab, var(--vr-primitive-lime-500) 10%, transparent);
+  --vr-map-glow-b:        color-mix(in oklab, var(--vr-primitive-success) 10%, transparent);
+  --vr-map-vignette:      oklch(0.16 0.012 240 / 0.55);
+}
+
+/* ---------- 3. SHADCN BRIDGE ----------
+ * Maps VangoRide semantic tokens to the variable names that
+ * shadcn/ui components consume. Editing this block re-themes
+ * every shadcn primitive (Button, Input, Dialog, Table…).
+ * ----------------------------------------------------------- */
+:root,
+.dark {
+  --background:           var(--vr-semantic-bg);
+  --foreground:           var(--vr-semantic-text-primary);
+
+  --surface:              var(--vr-semantic-surface-1);
+  --surface-foreground:   var(--vr-semantic-text-primary);
+
+  --card:                 var(--vr-semantic-surface-1);
+  --card-foreground:      var(--vr-semantic-text-primary);
+
+  --popover:              var(--vr-semantic-surface-1);
+  --popover-foreground:   var(--vr-semantic-text-primary);
+
+  --primary:              var(--vr-semantic-brand);
+  --primary-foreground:   var(--vr-semantic-text-on-brand);
+
+  --secondary:            var(--vr-semantic-surface-2);
+  --secondary-foreground: var(--vr-semantic-text-primary);
+
+  --muted:                var(--vr-semantic-surface-2);
+  --muted-foreground:     var(--vr-semantic-text-muted);
+
+  --accent:               var(--vr-semantic-surface-3);
+  --accent-foreground:    var(--vr-semantic-text-primary);
+
+  --destructive:          var(--vr-semantic-danger);
+  --destructive-foreground: oklch(0.98 0.005 240);
+
+  --success:              var(--vr-semantic-success);
+  --success-foreground:   var(--vr-semantic-text-on-brand);
+
+  --warning:              var(--vr-semantic-warning);
+  --warning-foreground:   var(--vr-semantic-text-on-brand);
+
+  --border:               var(--vr-semantic-border);
+  --input:                var(--vr-semantic-border);
+  --ring:                 var(--vr-semantic-brand);
+
+  --gradient-primary:     var(--vr-semantic-gradient-brand);
+  --gradient-surface:
+    linear-gradient(180deg, var(--vr-semantic-surface-1), var(--vr-semantic-bg));
+  --shadow-glow:          var(--vr-semantic-shadow-glow);
+  --shadow-elevated:      var(--vr-semantic-shadow-elevated);
+}
