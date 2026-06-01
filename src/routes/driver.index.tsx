@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { Logo } from "@/components/Logo";
 import { StatusBadge } from "@/components/StatusBadge";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { MapPlaceholder } from "@/components/MapPlaceholder";
 import { mockJob } from "@/lib/mockData";
 import { MapPin, Navigation, DollarSign, Wallet, X, Check } from "lucide-react";
@@ -20,7 +21,10 @@ function DriverHome() {
     <div className="min-h-screen bg-background pb-24 max-w-md mx-auto">
       <header className="px-5 pt-6 pb-4 flex items-center justify-between">
         <Logo />
-        <StatusBadge status={online ? (jobOpen ? "busy" : "online") : "offline"} />
+        <div className="flex items-center gap-2">
+          <StatusBadge status={online ? (jobOpen ? "busy" : "online") : "offline"} />
+          <ThemeToggle />
+        </div>
       </header>
 
       <div className="px-5">

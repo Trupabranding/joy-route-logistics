@@ -1,6 +1,7 @@
 import { Link, Outlet, useLocation } from "@tanstack/react-router";
 import { Logo } from "@/components/Logo";
-import { LayoutDashboard, Plus, History, Settings } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { LayoutDashboard, Plus, History } from "lucide-react";
 
 const NAV = [
   { to: "/business", icon: LayoutDashboard, label: "Overview" },
@@ -33,22 +34,24 @@ export function BusinessLayout() {
         </nav>
         <div className="flex items-center gap-3 px-3 py-2.5 text-sm text-muted-foreground">
           <div className="h-8 w-8 rounded-full bg-accent flex items-center justify-center text-foreground text-xs font-medium">AC</div>
-          <div>
+          <div className="flex-1">
             <div className="text-foreground font-medium text-sm">Acme Co.</div>
             <div className="text-xs">ops@acme.co</div>
           </div>
+          <ThemeToggle />
         </div>
       </aside>
 
       {/* Mobile top nav */}
       <header className="md:hidden border-b border-border px-5 py-4 flex items-center justify-between bg-surface">
         <Logo />
-        <div className="flex gap-1">
+        <div className="flex gap-1 items-center">
           {NAV.map(({ to, icon: Icon }) => (
             <Link key={to} to={to} className="h-9 w-9 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-accent">
               <Icon className="h-4 w-4" />
             </Link>
           ))}
+          <ThemeToggle className="ml-1" />
         </div>
       </header>
 

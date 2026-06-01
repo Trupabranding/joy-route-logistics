@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Logo } from "@/components/Logo";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Truck, Briefcase, MapPin, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -36,9 +37,10 @@ function Index() {
     <div className="min-h-screen bg-background">
       <header className="px-6 py-5 flex items-center justify-between max-w-7xl mx-auto">
         <Logo />
-        <div className="hidden sm:flex items-center gap-6 text-sm text-muted-foreground">
-          <a href="#how" className="hover:text-foreground transition-colors">How it works</a>
-          <a href="#portals" className="hover:text-foreground transition-colors">Portals</a>
+        <div className="flex items-center gap-6 text-sm text-muted-foreground">
+          <a href="#how" className="hidden sm:inline hover:text-foreground transition-colors">How it works</a>
+          <a href="#portals" className="hidden sm:inline hover:text-foreground transition-colors">Portals</a>
+          <ThemeToggle />
         </div>
       </header>
 

@@ -1,4 +1,11 @@
 import { cn } from "@/lib/utils";
+import {
+  mapTokens,
+  mapVignetteStyle,
+  mapStyleObject,
+  mapActiveRouteProps,
+  type MapVariant,
+} from "@/lib/mapTheme";
 
 interface MapPlaceholderProps {
   className?: string;
@@ -6,6 +13,7 @@ interface MapPlaceholderProps {
   driverPosition?: { x: number; y: number };
   pickupLabel?: string;
   dropoffLabel?: string;
+  variant?: MapVariant;
 }
 
 export function MapPlaceholder({
@@ -14,16 +22,16 @@ export function MapPlaceholder({
   driverPosition = { x: 50, y: 55 },
   pickupLabel = "Pickup",
   dropoffLabel = "Dropoff",
+  variant = "default",
 }: MapPlaceholderProps) {
   return (
-    <div className={cn("relative overflow-hidden map-grid rounded-2xl", className)}>
+    <div
+      className={cn("relative overflow-hidden map-grid rounded-2xl", className)}
+      style={mapStyleObject(variant)}
+    >
       <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
         {showRoute && (
-          <path
-            className="map-route"
-            d="M 20 25 Q 40 35, 50 50 T 80 80"
-            vectorEffect="non-scaling-stroke"
-          />
+          <path {...mapActiveRouteProps} d="M 20 25 Q 40 35, 50 50 T 80 80" />
         )}
       </svg>
 
@@ -33,7 +41,10 @@ export function MapPlaceholder({
           <div className="px-2 py-1 rounded-md bg-surface text-xs font-medium border border-border shadow-elevated">
             {pickupLabel}
           </div>
-          <div className="h-3 w-3 rounded-full bg-foreground border-2 border-background" />
+          <div
+            className="h-3 w-3 rounded-full border-2 border-background"
+            style={{ background: mapTokens.pickup }}
+          />
         </div>
       </div>
 
@@ -43,7 +54,10 @@ export function MapPlaceholder({
           <div className="px-2 py-1 rounded-md bg-primary text-primary-foreground text-xs font-medium shadow-elevated">
             {dropoffLabel}
           </div>
-          <div className="h-3 w-3 rounded-full bg-primary border-2 border-background" />
+          <div
+            className="h-3 w-3 rounded-full border-2 border-background"
+            style={{ background: mapTokens.dropoff }}
+          />
         </div>
       </div>
 
@@ -53,12 +67,15 @@ export function MapPlaceholder({
         style={{ left: `${driverPosition.x}%`, top: `${driverPosition.y}%`, transform: "translate(-50%, -50%)" }}
       >
         <div className="relative">
-          <div className="pulse-dot relative h-4 w-4 rounded-full bg-primary border-2 border-background shadow-glow" />
+          <div
+            className="pulse-dot relative h-4 w-4 rounded-full border-2 border-background shadow-glow"
+            style={{ background: mapTokens.driver }}
+          />
         </div>
       </div>
 
       {/* Subtle vignette */}
-      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(circle at center, transparent 50%, oklch(0.16 0.012 240 / 0.4))" }} />
+      <div className="absolute inset-0 pointer-events-none" style={mapVignetteStyle} />
     </div>
   );
 }
